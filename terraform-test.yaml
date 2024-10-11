@@ -1,0 +1,10 @@
+apiVersion: iac.terraoperator.com/v1alpha1
+kind: Terraform
+metadata:
+  namespace: test-terraform
+  name: test-null-resource
+spec:
+  modulePath: https://github.com/vancluever/terraform-null-module.git
+  version: "1.8.0"
+  variables:
+    test: "this is a var"

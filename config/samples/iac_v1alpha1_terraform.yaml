@@ -1,0 +1,9 @@
+apiVersion: iac.terraoperator.com/v1alpha1
+kind: Terraform
+metadata:
+  labels:
+    app.kubernetes.io/name: terra-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: terraform-sample
+spec:
+  # TODO(user): Add fields here

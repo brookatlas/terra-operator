@@ -1,0 +1,4 @@
+## Append samples of your project ##
+resources:
+- iac_v1alpha1_terraform.yaml
+#+kubebuilder:scaffold:manifestskustomizesamples
