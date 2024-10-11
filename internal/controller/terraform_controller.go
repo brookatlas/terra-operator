@@ -82,6 +82,7 @@ func (r *TerraformReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 func (r *TerraformReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&iacv1alpha1.Terraform{}).
+		Owns(&batchv1.Job{}).
 		Complete(r)
 }
 
@@ -91,6 +92,14 @@ func (r *TerraformReconciler) JobForTerraform(terraform *iacv1alpha1.Terraform) 
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      terraform.Name,
 			Namespace: terraform.Namespace,
+			OwnerReferences: []metav1.OwnerReference{
+				{
+					APIVersion: "iac.terraoperator.com/v1alpha1",
+					Kind:       "Terraform",
+					Name:       terraform.Name,
+					UID:        terraform.UID,
+				},
+			},
 			Labels: map[string]string{
 				"createdby":               "terraoperator",
 				"terraoperatorObjectName": terraform.Name,
